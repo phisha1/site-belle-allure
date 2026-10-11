@@ -1,0 +1,250 @@
+{
+  "boutique": {
+    "nom": "Belle Allure",
+    "slogan": "Ton style, ton allure.",
+    "description": "Robes, chaussures, sacs et tenues pour femme. Commandez sur WhatsApp, retrait gratuit en point relais ou livraison, paiement à la réception.",
+    "url": "",
+    "whatsapp": "",
+    "facebook": "https://www.facebook.com/belleallure237",
+    "livraison": 1000,
+    "retrait": "",
+    "photo_accueil": "exemples/pexels-4947543.jpg",
+    "exemples": true
+  },
+  "categories": [
+    {
+      "id": "robes",
+      "nom": "Robes",
+      "taille": "Taille",
+      "guide": "tailles"
+    },
+    {
+      "id": "pagne",
+      "nom": "Pagne et kaba",
+      "taille": "Taille",
+      "guide": "tailles"
+    },
+    {
+      "id": "chaussures",
+      "nom": "Chaussures",
+      "taille": "Pointure",
+      "guide": "pointures"
+    },
+    {
+      "id": "sacs",
+      "nom": "Sacs",
+      "taille": "",
+      "guide": ""
+    }
+  ],
+  "produits": [
+    {
+      "id": "robe-ajustee-ceinturee",
+      "nom": "Robe ajustée ceinturée",
+      "categorie": "robes",
+      "prix": 12000,
+      "tailles": ["S", "M", "L", "XL"],
+      "photos": ["exemples/pexels-30246240.jpg"],
+      "cadrage": 0.45,
+      "description": "Robe ajustée à fines bretelles, gris perle, avec une large ceinture noire qui marque la taille.",
+      "exemple": true
+    },
+    {
+      "id": "slingback-creme-mors-dore",
+      "nom": "Slingback crème à mors doré",
+      "categorie": "chaussures",
+      "prix": 8000,
+      "tailles": [37, 38, 39, 40, 41, 42],
+      "photos": ["10-slingback-creme-mors-dore.jpg"],
+      "description": "Petit talon carré, bride arrière à boucle et mors doré sur le dessus. Elle passe aussi bien au bureau qu'à une cérémonie."
+    },
+    {
+      "id": "kaba-dore-brode",
+      "nom": "Kaba doré brodé",
+      "categorie": "pagne",
+      "prix": 18000,
+      "tailles": ["Taille unique"],
+      "photos": ["exemples/pexels-37882999.jpg"],
+      "cadrage": 0.3,
+      "description": "Kaba long et ample, tissu doré avec empiècements brodés au col et aux manches. Foulard assorti.",
+      "exemple": true
+    },
+    {
+      "id": "sac-matelasse-blanc",
+      "nom": "Sac matelassé blanc",
+      "categorie": "sacs",
+      "prix": 12000,
+      "tailles": [],
+      "photos": ["exemples/pexels-31929486.jpg"],
+      "cadrage": 0.5,
+      "description": "Sac matelassé blanc, chaîne dorée et fermoir rectangulaire. Se porte à l'épaule ou à la main.",
+      "exemple": true
+    },
+    {
+      "id": "robe-longue-noire",
+      "nom": "Robe longue noire",
+      "categorie": "robes",
+      "prix": 15000,
+      "tailles": ["S", "M", "L", "XL"],
+      "photos": ["exemples/pexels-32767403.jpg"],
+      "cadrage": 0.4,
+      "description": "Robe longue à bretelles fines, coupe droite et tissu fluide. Simple, et toujours juste le soir.",
+      "exemple": true,
+      "epuisees": ["XL"]
+    },
+    {
+      "id": "ballerine-pointue-cloutee",
+      "nom": "Ballerine pointue cloutée",
+      "categorie": "chaussures",
+      "prix": 8000,
+      "tailles": [37, 38, 39, 40, 41, 42],
+      "photos": ["03-ballerine-pointue-cloutee.jpg"],
+      "description": "Bout pointu, bleu ciel, bordée de petits clous dorés. Plate et légère pour la journée."
+    },
+    {
+      "id": "robe-pagne-jaune",
+      "nom": "Robe en pagne jaune",
+      "categorie": "pagne",
+      "prix": 14000,
+      "tailles": ["S", "M", "L", "XL"],
+      "photos": ["exemples/pexels-10919896.jpg"],
+      "cadrage": 0.35,
+      "description": "Pagne jaune et noir, épaules dénudées à volants, taille resserrée. Pour les mariages et les sorties.",
+      "exemple": true
+    },
+    {
+      "id": "robe-chemise-satin-fuchsia",
+      "nom": "Robe chemise en satin fuchsia",
+      "categorie": "robes",
+      "prix": 13000,
+      "tailles": ["S", "M", "L", "XL"],
+      "photos": ["exemples/pexels-15603218.jpg"],
+      "cadrage": 0.4,
+      "description": "Satin fuchsia, manches longues et boutons sur le devant. À porter seule ou avec une ceinture.",
+      "exemple": true
+    },
+    {
+      "id": "slingback-noire-vernie",
+      "nom": "Slingback noire vernie",
+      "categorie": "chaussures",
+      "prix": 8000,
+      "tailles": [37, 38, 39, 40, 41, 42],
+      "photos": ["04-slingback-noir-coolegance.jpg"],
+      "description": "Vernis noir, bout carré et grande boucle sur le devant. Plate, avec une bride élastique derrière le talon."
+    },
+    {
+      "id": "sac-a-main-rouge",
+      "nom": "Sac à main rouge",
+      "categorie": "sacs",
+      "prix": 10000,
+      "tailles": [],
+      "photos": ["exemples/pexels-22434764.jpg"],
+      "cadrage": 0.5,
+      "description": "Sac à main rouge cerise, forme bombée, deux anses et fermeture éclair.",
+      "exemple": true,
+      "epuise": true
+    },
+    {
+      "id": "ballerine-creme-matelassee",
+      "nom": "Ballerine crème matelassée",
+      "categorie": "chaussures",
+      "prix": 8000,
+      "tailles": [37, 38, 39, 40, 41, 42],
+      "photos": ["01-ballerine-creme-matelassee.jpg"],
+      "description": "Dessus matelassé, petit nœud sur le devant et bout rond. Une ballerine douce qui va avec tout."
+    },
+    {
+      "id": "robe-rouge-a-fleurs",
+      "nom": "Robe rouge à fleurs",
+      "categorie": "robes",
+      "prix": 12000,
+      "tailles": ["S", "M", "L", "XL"],
+      "photos": ["exemples/pexels-11054066.jpg"],
+      "zone": [0.16, 0.28, 0.84, 1],
+      "cadrage": 0.6,
+      "description": "Robe mi-longue rouge à petites fleurs blanches, manches courtes et jupe qui tourne.",
+      "exemple": true
+    },
+    {
+      "id": "babies-creme-a-bride",
+      "nom": "Babies crème à bride",
+      "categorie": "chaussures",
+      "prix": 8000,
+      "tailles": [37, 38, 39, 40, 41, 42],
+      "photos": ["07-babies-creme-profil.jpg", "08-babies-creme-dessus.jpg"],
+      "description": "Bride camel à boucle dorée et petit talon carré. Le pied est bien tenu toute la journée."
+    },
+    {
+      "id": "cabas-cuir-beige",
+      "nom": "Cabas beige",
+      "categorie": "sacs",
+      "prix": 11000,
+      "tailles": [],
+      "photos": ["exemples/pexels-36365228.jpg"],
+      "cadrage": 0.5,
+      "description": "Grand cabas beige à longues anses, porté à l'épaule. Existe aussi en blanc.",
+      "exemple": true
+    },
+    {
+      "id": "ballerine-argentee",
+      "nom": "Ballerine argentée",
+      "categorie": "chaussures",
+      "prix": 8000,
+      "tailles": [37, 38, 39, 40, 41, 42],
+      "photos": ["05-ballerine-argent-profil.jpg", "09-ballerine-argent-dessus.jpg"],
+      "description": "Argent métallisé, bout carré et petit nœud. Elle réveille un jean comme une robe."
+    },
+    {
+      "id": "ballerine-kaki-bout-creme",
+      "nom": "Ballerine kaki, bout crème",
+      "categorie": "chaussures",
+      "prix": 8000,
+      "tailles": [37, 38, 39, 40, 41, 42],
+      "photos": ["02-ballerine-kaki-bout-creme.jpg"],
+      "description": "Vernis kaki avec le bout crème et un petit talon carré. Originale sans être voyante."
+    },
+    {
+      "id": "ballerine-bordeaux-fleur",
+      "nom": "Ballerine bordeaux à fleur",
+      "categorie": "chaussures",
+      "prix": 8000,
+      "tailles": [37, 38, 39, 40, 41, 42],
+      "photos": ["06-ballerine-bordeaux-fleur.jpg"],
+      "description": "Vernis bordeaux avec un nœud noir et sa fleur. Une touche de couleur pour les sorties."
+    }
+  ],
+  "guides": {
+    "pointures": {
+      "titre": "Guide des pointures",
+      "colonnes": ["Pointure", "Longueur du pied"],
+      "lignes": [
+        ["37", "23,5 cm"],
+        ["38", "24 cm"],
+        ["39", "24,5 cm"],
+        ["40", "25,5 cm"],
+        ["41", "26 cm"],
+        ["42", "26,5 cm"]
+      ],
+      "conseils": [
+        "Posez le pied à plat sur une feuille, le talon contre un mur. Marquez le bout du plus long orteil, puis mesurez du mur à la marque.",
+        "Mesurez en fin de journée, quand le pied est un peu plus gonflé.",
+        "Entre deux pointures, prenez la plus grande."
+      ]
+    },
+    "tailles": {
+      "titre": "Guide des tailles",
+      "colonnes": ["Taille", "Poitrine", "Tour de taille", "Hanches"],
+      "lignes": [
+        ["S (36-38)", "84-88", "66-70", "92-96"],
+        ["M (38-40)", "88-92", "70-74", "96-100"],
+        ["L (40-42)", "92-96", "74-78", "100-104"],
+        ["XL (42-44)", "96-100", "78-82", "104-108"]
+      ],
+      "unite": "Mesures en centimètres.",
+      "conseils": [
+        "Mesurez-vous en sous-vêtements, le mètre ruban bien à plat sans serrer.",
+        "Entre deux tailles, prenez la plus grande pour plus de confort."
+      ]
+    }
+  }
+}
