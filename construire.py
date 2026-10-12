@@ -214,6 +214,8 @@ def entete(cat, racine):
     b = cat["boutique"]
     accueil = racine or "./"
     rayons = "".join(f'<li><a href="{accueil}#{c["id"]}">{e(c["nom"])}</a></li>' for c in cat["categories"])
+    # listes préparées hors du gabarit : Python 3.9 refuse « # » dans une expression de f-string
+    rayons_menu = "".join(f'<li><a href="{accueil}#{c["id"]}">{e(c["nom"])}</a></li>' for c in cat["categories"])
     return f"""<p class="bandeau">Paiement à la réception <span aria-hidden="true">·</span> Retrait gratuit</p>
 <header class="entete">
   <div class="entete-ligne">
@@ -243,7 +245,7 @@ def entete(cat, racine):
   </div>
   <nav aria-label="Catégories">
     <ul class="menu-liste">
-      <li><a href="{accueil}#articles">Tous les articles</a></li>{''.join(f'<li><a href="{accueil}#{c["id"]}">{e(c["nom"])}</a></li>' for c in cat["categories"])}
+      <li><a href="{accueil}#articles">Tous les articles</a></li>{rayons_menu}
     </ul>
   </nav>
   <ul class="menu-liste menu-aide">
@@ -258,6 +260,7 @@ def entete(cat, racine):
 def pied(cat, racine):
     b = cat["boutique"]
     accueil = racine or "./"
+    rayons = "".join(f'<li><a href="{accueil}#{c["id"]}">{e(c["nom"])}</a></li>' for c in cat["categories"])
     return f"""<footer class="pied">
   <div class="pied-dedans">
     <div class="pied-marque">
@@ -266,7 +269,7 @@ def pied(cat, racine):
     </div>
     <div>
       <h2>Boutique</h2>
-      <ul>{''.join(f'<li><a href="{accueil}#{c["id"]}">{e(c["nom"])}</a></li>' for c in cat["categories"])}</ul>
+      <ul>{rayons}</ul>
     </div>
     <div>
       <h2>Aide</h2>

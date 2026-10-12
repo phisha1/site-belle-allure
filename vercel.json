@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "installCommand": "uv pip install --system pillow || python3 -m pip install --break-system-packages pillow",
-  "buildCommand": "python3 construire.py",
-  "outputDirectory": "public"
+  "buildCommand": "uv run --no-project --python 3.12 --with pillow python construire.py",
+  "outputDirectory": "public",
+  "installCommand": "uv python install 3.12"
 }
