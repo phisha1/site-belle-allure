@@ -234,11 +234,16 @@
     });
   }
 
+  // Le panier n'est activé (classe posée dans le <head>) que si le navigateur sait garder des données.
+  // Sinon, la fiche reste un simple formulaire qui envoie l'article à WhatsApp.
+  var PANIER_ACTIF = document.documentElement.classList.contains("panier-actif");
+
   // ---------------------------------------------------------------- fiche : ajouter au panier
   function ajouter() {
     var fiche = document.querySelector("[data-produit]");
-    var boutons = document.querySelectorAll("[data-ajouter]");
-    if (!fiche || !boutons.length) return;
+    var form = document.querySelector("[data-form-article]");
+    if (!fiche || !form || !PANIER_ACTIF) return;
+    form.noValidate = true; // nos propres messages remplacent ceux du navigateur
     var id = fiche.getAttribute("data-produit");
     var libelle = fiche.getAttribute("data-taille-libelle") || "Taille";
     var tailles = document.querySelector("[data-tailles]");
@@ -247,8 +252,8 @@
     var confirmation = document.getElementById("ajoute");
 
     function tailleChoisie() {
-      var t = tailles && tailles.querySelector('input[name="taille"]:checked');
-      return t ? t.value : "";
+      var t = tailles && tailles.querySelector("input[data-taille]:checked");
+      return t ? t.getAttribute("data-taille") : "";
     }
 
     if (tailles) {
@@ -259,8 +264,10 @@
       });
     }
 
-    boutons.forEach(function (b) {
-      b.addEventListener("click", function () {
+    // le bouton de la fiche et celui de la barre du bas envoient le même formulaire
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      (function () {
         // comme sur les grands sites, la taille doit être choisie avant
         if (tailles && !tailleChoisie()) {
           erreurTaille.hidden = false;
@@ -278,11 +285,11 @@
         else lignes.push({ id: id, taille: taille, quantite: 1 });
         ecrirePanier(lignes);
 
-        var unique = tailles && tailles.querySelectorAll('input[name="taille"]').length === 1;
+        var unique = tailles && tailles.querySelectorAll("input[data-taille]").length === 1;
         confirmation.querySelector("[data-detail]").textContent =
           !taille ? "" : unique ? taille : libelle + " : " + taille;
         ouvrirFenetre(confirmation);
-      });
+      })();
     });
 
     // Barre « Ajouter au panier » en bas de l'écran (téléphone), tant que le bouton principal n'est pas à l'écran.
@@ -328,7 +335,7 @@
 
   function panier() {
     var form = document.querySelector("[data-panier-formulaire]");
-    if (!form) return;
+    if (!form || !PANIER_ACTIF) return;
     var catalogue = JSON.parse(document.getElementById("catalogue").textContent);
     var liste = form.querySelector("[data-panier-liste]");
     var vide = document.querySelector("[data-panier-vide]");

@@ -204,6 +204,7 @@ def tete(boutique, titre, description, racine, apercu, chemin, version, type_og=
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@400;500&amp;display=swap"></noscript>
 <link rel="stylesheet" href="{racine}style.css?v={version}">
+<script>/* panier seulement si le navigateur sait garder des données (pas Opera Mini) */try{{localStorage.setItem("ba-test","1");localStorage.removeItem("ba-test");if(!window.operamini&&!/Opera Mini/.test(navigator.userAgent))document.documentElement.className+=" panier-actif"}}catch(e){{}}</script>
 <script src="{racine}commande.js?v={version}" defer></script>
 </head>"""
 
@@ -405,6 +406,20 @@ def visionneuse(p, racine):
 </dialog>"""
 
 
+def message_direct(b, p, taille, libelle):
+    """Commande d'un seul article, envoyée telle quelle à WhatsApp quand le panier ne peut pas marcher."""
+    detail = ""
+    if taille != "":
+        detail = f", {str(taille).lower()}" if len(p["tailles"]) == 1 else f", {libelle.lower()} {taille}"
+    lignes = ["Bonjour Belle Allure, je voudrais commander :", "",
+              f"*{p['nom']}*{detail} : {prix(p['prix'])}"]
+    if b["url"]:
+        lignes.append(absolue(b, f"p/{p['id']}.html"))
+    lignes += ["", "Retrait en point relais (gratuit) ou livraison à domicile : ", "Nom : "]
+    # les retours à la ligne doivent survivre dans un attribut HTML
+    return e("\n".join(lignes)).replace("\n", "&#10;")
+
+
 def suggestions(p, produits, n=4):
     memes = [q for q in produits if q["categorie"] == p["categorie"] and q is not p and not q.get("epuise")]
     autres = [q for q in produits if q["categorie"] != p["categorie"] and not q.get("epuise")]
@@ -432,10 +447,10 @@ def page_produit(cat, p, produits, version):
         dispo = [t for t in p["tailles"] if str(t) not in epuisees]
         seule = len(dispo) == 1 and len(p["tailles"]) == 1
         options = "".join(
-            (f'<label class="taille"><input type="radio" name="taille" value="{e(t)}" disabled aria-label="{e(t)}, épuisé">'
+            (f'<label class="taille"><input type="radio" name="text" value="" data-taille="{e(t)}" disabled aria-label="{e(t)}, épuisé">'
              f'<span>{e(t)}</span></label>') if str(t) in epuisees else
-            (f'<label class="taille"><input type="radio" name="taille" value="{e(t)}"{" checked" if seule else ""}>'
-             f'<span>{e(t)}</span></label>') for t in p["tailles"])
+            (f'<label class="taille"><input type="radio" name="text" value="{message_direct(b, p, t, libelle)}" data-taille="{e(t)}"'
+             f'{" checked" if seule else ""} required><span>{e(t)}</span></label>') for t in p["tailles"])
         lien_guide = (f'<button type="button" class="lien-guide" data-ouvrir="guide" aria-haspopup="dialog">{e(guide["titre"])}</button>'
                       if guide else "")
         note = f'<p class="choix-note">Barré : épuisé.</p>' if epuisees else ""
@@ -457,13 +472,19 @@ def page_produit(cat, p, produits, version):
       <p class="fiche-aide">Cet article est épuisé. <a href="{e(lien_whatsapp(b))}" target="_blank" rel="noopener">Écrivez-nous sur WhatsApp</a> pour être prévenue de son retour.</p>"""
         barre = ""
     else:
+        sans_taille = "" if p["tailles"] else f'\n        <input type="hidden" name="text" value="{message_direct(b, p, "", libelle)}">'
         action = f"""
-      <button type="button" class="bouton bouton-ajouter" data-ajouter>{I_SAC}Ajouter au panier</button>
+      <form class="form-article" id="form-article" action="https://wa.me/{e(b['whatsapp'])}" method="get" data-form-article>{choix}{sans_taille}
+        <button type="submit" class="bouton bouton-ajouter">
+          <span class="si-panier">{I_SAC}Ajouter au panier</span>
+          <span class="sans-panier">{I_MESSAGE}Commander sur WhatsApp</span>
+        </button>
+      </form>
       <p class="fiche-aide">Besoin d'aide pour commander ? <a href="{e(lien_whatsapp(b))}" target="_blank" rel="noopener">Écrivez-nous sur WhatsApp</a></p>"""
         barre = f"""
 <div class="barre" data-barre>
   <p><span class="barre-nom">{e(p['nom'])}</span><strong>{prix(p['prix'])}</strong></p>
-  <button type="button" class="bouton" data-ajouter>Ajouter au panier</button>
+  <button type="submit" form="form-article" class="bouton"><span class="si-panier">Ajouter au panier</span><span class="sans-panier">Commander</span></button>
 </div>"""
     dialogue_guide = f"""
 <dialog class="feuille feuille-guide" id="guide" aria-labelledby="titre-guide">
@@ -489,7 +510,7 @@ def page_produit(cat, p, produits, version):
     <div class="fiche-infos">
       <h1>{e(p['nom'])}</h1>
       <p class="fiche-prix">{prix(p['prix'])}</p>
-      <p class="fiche-livraison">Retrait gratuit en point relais ou livraison {prix(liv)}. Paiement à la réception.</p>{choix}{action}
+      <p class="fiche-livraison">Retrait gratuit en point relais ou livraison {prix(liv)}. Paiement à la réception.</p>{action}
       {garanties(b, 'garanties garanties-fiche')}
       <details class="volet" open>
         <summary>Description</summary>
@@ -548,6 +569,11 @@ def page_panier(cat, produits, version):
 <main class="panier">
   <nav class="fil" aria-label="Fil d'Ariane"><a href="./">Accueil</a><span aria-hidden="true">›</span><span>Panier</span></nav>
   <h1>Mon panier</h1>
+
+  <div class="panier-vide bloc-sans-panier">
+    <p>Le panier ne fonctionne pas sur ce navigateur. Commandez depuis la fiche de chaque article : le bouton « Commander sur WhatsApp » nous envoie directement votre commande.</p>
+    <a class="bouton" href="./#articles">Voir les articles</a>
+  </div>
 
   <div class="panier-vide" data-panier-vide hidden>
     {I_SAC}

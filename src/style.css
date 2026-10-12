@@ -65,6 +65,12 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 .bouton:active { transform: scale(.98); }
 .bouton:disabled { background: var(--ligne-forte); color: var(--encre-douce); cursor: not-allowed; transform: none; }
 
+/* Panier ou commande directe : la classe « panier-actif » est posée dans le <head> si le panier peut marcher */
+.si-panier, .sans-panier { display: none; align-items: center; gap: 10px; }
+.sans-panier { display: inline-flex; }
+.panier-actif .si-panier { display: inline-flex; }
+.panier-actif .sans-panier, .panier-actif .bloc-sans-panier { display: none; }
+
 .lien {
   padding: 0; border: 0; background: none; cursor: pointer;
   color: var(--prune); font-weight: 600; text-decoration: underline; text-underline-offset: 3px;

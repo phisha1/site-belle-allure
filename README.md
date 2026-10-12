@@ -73,6 +73,9 @@ Puis ouvrir http://localhost:8000. Seule dépendance : Pillow (déjà installé)
   ou **livraison à domicile** (`livraison` en francs), puis tout part dans un seul message WhatsApp.
 - `boutique.retrait` : adresse du point relais. Vide = « adresse envoyée sur WhatsApp ».
 - Rupture d'une taille : `"epuisees": ["XL"]` dans l'article. Article entier épuisé : `"epuise": true`.
+- Sans panier possible (JavaScript coupé, Opera Mini, navigation privée stricte, script pas chargé) :
+  la fiche reste un simple formulaire et le bouton devient « Commander sur WhatsApp ». Il envoie
+  l'article et la taille choisie directement, sans passer par le panier.
 - Guides des tailles et pointures : `guides` dans `catalogue.json` (mesures indicatives, à ajuster au vrai stock).
 
 ## Réglages de la boutique (`boutique` dans `catalogue.json`)
