@@ -15,6 +15,11 @@ La page `aide.html` explique la commande, la livraison et le paiement.
 Site statique (HTML, CSS, un peu de JavaScript), sans bibliothèque, pour rester léger
 sur les connexions lentes.
 
+## En ligne
+
+Le site est hébergé sur Vercel : https://belle-allure-iota.vercel.app
+Chaque `git push` sur `main` le reconstruit et le republie (réglages dans `vercel.json`).
+
 ## Organisation
 
 | Fichier | Rôle |
