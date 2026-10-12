@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "python3 -m pip install pillow",
+  "buildCommand": "python3 construire.py",
+  "outputDirectory": "public"
+}
