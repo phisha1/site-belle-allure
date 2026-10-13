@@ -261,6 +261,16 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 
 .vide { padding: 8px var(--gouttiere) 24px; color: var(--encre-douce); }
 
+/* types de chaussures, sous les onglets */
+.sous-filtres { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 0 var(--gouttiere) 14px; margin-top: -4px; }
+.sous-filtres::-webkit-scrollbar { display: none; }
+.sous-filtre {
+  flex: none; min-height: 40px; padding: 0 14px; cursor: pointer;
+  border: 1px solid var(--ligne-forte); border-radius: 999px; background: var(--fond); font-size: 14px;
+  transition: background-color .18s, color .18s, border-color .18s;
+}
+.sous-filtre[aria-pressed="true"] { background: var(--prune); border-color: var(--prune); color: #fff; }
+
 .grille {
   list-style: none; margin: 0; padding: 0 var(--gouttiere);
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px 10px;
@@ -270,7 +280,8 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 
 .carte a { display: flex; flex-direction: column; text-decoration: none; }
 .carte-photo { position: relative; display: block; overflow: hidden; border-radius: var(--rayon); background: var(--creme); margin-bottom: 8px; }
-.carte-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform .5s cubic-bezier(.3, .7, .2, 1); }
+/* case carrée sur fond crème, photo entière posée au centre (comme Jumia) : rien n'est coupé */
+.carte-photo img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; transition: transform .5s cubic-bezier(.3, .7, .2, 1); }
 .carte-nom {
   font-size: 14px; line-height: 1.35;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
@@ -285,6 +296,7 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 
 .carte a:active .carte-photo img { opacity: .85; }
 .carte-epuisee .carte-photo img { opacity: .5; }
+.badge-nouveau { background: var(--prune); color: #fff; }
 .badge {
   position: absolute; top: 8px; left: 8px; z-index: 1; padding: 3px 8px; border-radius: 2px;
   background: var(--fond); color: var(--encre); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
@@ -308,7 +320,13 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 .galerie-piste { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .galerie-piste::-webkit-scrollbar { display: none; }
 .galerie-photo { flex: 0 0 100%; padding: 0; border: 0; background: none; cursor: zoom-in; scroll-snap-align: start; }
-.galerie-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.galerie-photo img { width: 100%; aspect-ratio: var(--ratio, 4 / 5); object-fit: contain; }
+.bouton-video {
+  position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px;
+  min-height: 40px; padding: 0 14px; border-radius: 999px; background: rgba(255, 255, 255, .94);
+  color: var(--encre); font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: 0 1px 4px rgba(42, 24, 36, .18);
+}
+.bouton-video .icone { width: 16px; height: 16px; fill: currentColor; stroke: none; }
 .galerie-points { position: absolute; left: 0; right: 0; bottom: 10px; display: flex; justify-content: center; gap: 2px; }
 .galerie-points button {
   display: grid; place-items: center; width: 24px; height: 24px; padding: 0;
@@ -429,7 +447,7 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 .feuille-corps { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 16px var(--gouttiere) 24px; }
 
 .feuille-article { display: grid; grid-template-columns: 60px 1fr; gap: 12px; align-items: center; margin-bottom: 16px; }
-.feuille-article img { width: 60px; height: 75px; object-fit: cover; border-radius: var(--rayon); background: var(--creme); }
+.feuille-article img { width: 60px; height: 60px; object-fit: contain; border-radius: var(--rayon); background: var(--creme); }
 .feuille-nom { font-size: 15px; font-weight: 600; line-height: 1.3; }
 .feuille-detail { font-size: 13.5px; color: var(--encre-douce); }
 .feuille-prix { font-size: 15px; font-weight: 700; color: var(--prune); }
@@ -534,7 +552,7 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 
 .panier-liste { list-style: none; margin: 0; padding: 0 var(--gouttiere); border-top: 1px solid var(--ligne); }
 .ligne { display: grid; grid-template-columns: 84px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--ligne); }
-.ligne-photo img { width: 84px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--rayon); background: var(--creme); }
+.ligne-photo img { width: 84px; aspect-ratio: 1 / 1; object-fit: contain; border-radius: var(--rayon); background: var(--creme); }
 .ligne-nom { font-size: 15px; font-weight: 600; line-height: 1.3; text-decoration: none; }
 .ligne-detail { font-size: 13.5px; color: var(--encre-douce); }
 .ligne-prix { margin-top: 2px; font-size: 15px; font-weight: 700; color: var(--prune); }
@@ -577,6 +595,15 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 .merci-page p { color: var(--encre-douce); max-width: 30em; }
 .merci-page .bouton { width: 100%; max-width: 360px; margin-top: 24px; }
 .merci-page .bouton + .bouton { margin-top: 10px; }
+
+/* ------------------------------------------------------------ vidéo de l'article */
+.lecteur {
+  margin: 0; inset: 0; width: 100%; max-width: 100%; height: 100%; max-height: 100%;
+  padding: 0; border: 0; background: #000; overflow: hidden;
+}
+.lecteur[open] { display: grid; place-items: center; }
+.lecteur::backdrop { background: #000; }
+.lecteur video { width: 100%; max-height: 100%; }
 
 /* ------------------------------------------------------------ photos en plein écran */
 .visionneuse {

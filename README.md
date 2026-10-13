@@ -65,6 +65,15 @@ Puis ouvrir http://localhost:8000. Seule dépendance : Pillow (déjà installé)
 - `zone` (facultatif) : `[gauche, haut, droite, bas]` en fractions, pour zoomer quand le mannequin est trop petit.
 - L'ordre des articles dans le fichier est l'ordre d'affichage.
 
+- Photo prise sur la table de la boutique : ajouter `"decor": true`. La photo reste entière (pas de
+  recadrage) ; seule la lumière est rattrapée, sans toucher aux couleurs. Les cases du site sont carrées
+  sur fond crème, la photo est posée au centre.
+- Vidéo : la mettre dans `videos/` et ajouter `"video": "videos/nom.mp4"`. Sur la fiche, « Voir la vidéo »
+  ne la télécharge qu'au toucher. Pour l'alléger : `ffmpeg -i entree.mp4 -an -vf "scale='min(720,iw)':-2"
+  -c:v libx264 -crf 30 -movflags +faststart videos/nom.mp4`.
+- `"type"` (ballerine, escarpin, slingback, mocassin, babies, mule, baskets) : tri sous l'onglet Chaussures.
+- `"nouveau": true` : badge « Nouveau » sur la case.
+
 3. Relancer `python3 construire.py`.
 
 ## Panier, retrait et ruptures

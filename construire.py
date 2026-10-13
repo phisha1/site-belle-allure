@@ -11,7 +11,7 @@ import shutil
 from html import escape
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageOps
+from PIL import Image, ImageChops, ImageEnhance, ImageOps
 
 ICI = Path(__file__).parent
 PHOTOS = ICI / "photos"
@@ -21,6 +21,7 @@ SORTIE = ICI / "public"
 RATIO = 4 / 5  # toutes les photos d'articles en portrait 4:5, comme les boutiques de mode
 LARGEURS = (400, 600, 800, 1080)
 ANNEE = 2026
+DIMENSIONS = {}  # (id, n° de photo) -> (largeur, hauteur) de la photo préparée, pour les balises <img>
 
 
 # ------------------------------------------------------------------ outils
@@ -43,15 +44,16 @@ def libelle_tailles(tailles):
     return f"{tailles[0]} à {tailles[-1]}"
 
 
-def sur_fond_uni(im, largeur=0.86, hauteur=0.62):
+def sur_fond_uni(im, largeur=0.88, hauteur=0.7):
     """Photo détourée sur fond uni (nos chaussures) : on resserre autour de l'objet,
-    puis on le pose au centre d'une toile 4:5 du même fond, assez grand pour bien le voir."""
+    puis on le pose au centre d'une toile carrée du même fond, assez grand pour bien le voir
+    (les cases du site sont carrées)."""
     fond = im.getpixel((2, 2))
     ecart = ImageChops.difference(im, Image.new("RGB", im.size, fond)).convert("L")
     x0, y0, x1, y1 = ecart.point(lambda v: 255 if v > 10 else 0).getbbox()
     marge = 30  # garde le dégradé de l'ombre
     objet = im.crop((max(0, x0 - marge), max(0, y0 - marge), min(im.width, x1 + marge), min(im.height, y1 + marge)))
-    W, H = 1080, round(1080 / RATIO)
+    W = H = 1080
     k = min(W * largeur / objet.width, H * hauteur / objet.height)
     objet = objet.resize((round(objet.width * k), round(objet.height * k)), Image.LANCZOS)
     toile = Image.new("RGB", (W, H), fond)
@@ -98,6 +100,11 @@ def empreinte(*chemins):
 # ------------------------------------------------------------------ images
 def photo_article(p, chemin):
     im = ouvrir(chemin)
+    if p.get("decor"):
+        # photo prise sur la table de la boutique : on la garde entière (le site la pose sur un fond crème),
+        # on rattrape seulement un peu de contraste et de lumière
+        # preserve_tone : on corrige la lumière sans toucher aux couleurs (sinon le bois orange fait virer la chaussure)
+        return ImageEnhance.Brightness(ImageOps.autocontrast(im, cutoff=0.4, preserve_tone=True)).enhance(1.04)
     if "zone" in p:  # [gauche, haut, droite, bas] en fractions : pour zoomer sur le mannequin
         g, h, d, b = p["zone"]
         im = im.crop((round(g * im.width), round(h * im.height), round(d * im.width), round(b * im.height)))
@@ -109,19 +116,26 @@ def images_articles(produits):
         for i, chemin in enumerate(p["photos"], 1):
             im = photo_article(p, chemin)
             decliner(im, f"{p['id']}-{i}")
+            DIMENSIONS[(p["id"], i)] = (im.width, im.height)
             if i == 1:  # aperçu des liens partagés (WhatsApp, Facebook)
-                im.resize((1080, 1350), Image.LANCZOS).save(SORTIE / "img" / f"{p['id']}-apercu.jpg", quality=80)
+                im.resize((1080, round(1080 * im.height / im.width)), Image.LANCZOS).save(
+                    SORTIE / "img" / f"{p['id']}-apercu.jpg", quality=80)
+        if p.get("video"):
+            (SORTIE / "video").mkdir(exist_ok=True)
+            shutil.copy(ICI / p["video"], SORTIE / "video" / f"{p['id']}.mp4")
 
 
 def images_rayons(cat, produits):
     """Vignette ronde de chaque catégorie : la photo de son premier article, recadrée en carré."""
     for c in cat["categories"]:
-        p = next((q for q in produits if q["categorie"] == c["id"]), None)
+        p = next((q for q in produits if q["id"] == c.get("rayon")), None) or \
+            next((q for q in produits if q["categorie"] == c["id"]), None)
         if p:
             im = photo_article(p, p["photos"][0])
-            cote = im.width
+            cote = min(im.size)
+            x = (im.width - cote) // 2
             y = round((im.height - cote) * (0.5 if p.get("cadrage") is None else 0.2))
-            decliner(im.crop((0, y, cote, y + cote)), f"rayon-{c['id']}", (160,))
+            decliner(im.crop((x, y, x + cote, y + cote)), f"rayon-{c['id']}", (160,))
 
 
 def images_banniere(boutique):
@@ -308,10 +322,12 @@ def carte(p, racine):
     base = f"{racine}img/{p['id']}-1"
     tailles = libelle_tailles(p["tailles"])
     epuise = p.get("epuise")
-    return f"""<li class="carte{' carte-epuisee' if epuise else ''}" data-categorie="{p['categorie']}" data-nom="{e(p['nom'].lower())}">
+    badge = '<span class="badge">Épuisé</span>' if epuise else '<span class="badge badge-nouveau">Nouveau</span>' if p.get("nouveau") else ""
+    w, h = DIMENSIONS.get((p["id"], 1), (800, 1000))
+    return f"""<li class="carte{' carte-epuisee' if epuise else ''}" data-categorie="{p['categorie']}" data-type="{p.get('type', '')}" data-nom="{e(p['nom'].lower())}">
   <a href="{racine}p/{p['id']}.html">
-    <span class="carte-photo">{'<span class="badge">Épuisé</span>' if epuise else ''}<img src="{base}-400.webp" srcset="{base}-400.webp 400w, {base}-600.webp 600w, {base}-800.webp 800w"
-      sizes="(min-width: 1024px) 22vw, (min-width: 700px) 31vw, 48vw" width="800" height="1000" loading="lazy" decoding="async" alt=""></span>
+    <span class="carte-photo">{badge}<img src="{base}-400.webp" srcset="{base}-400.webp 400w, {base}-600.webp 600w, {base}-800.webp 800w"
+      sizes="(min-width: 1024px) 22vw, (min-width: 700px) 31vw, 48vw" width="{w}" height="{h}" loading="lazy" decoding="async" alt=""></span>
     <span class="carte-nom">{e(p['nom'])}</span>
     <span class="carte-prix">{prix(p['prix'])}</span>{f'''
     <span class="carte-tailles">{e(tailles)}</span>''' if tailles and not epuise else ''}
@@ -343,6 +359,14 @@ def page_accueil(cat, produits, version):
         f'    <li><a href="#{c["id"]}"><img src="img/rayon-{c["id"]}-160.webp" width="160" height="160" alt="" loading="lazy">'
         f'<span>{e(c["nom"])}</span></a></li>' for c in utilisees)
     cartes = "\n".join(carte(p, "") for p in produits)
+    sous = ""
+    for c in utilisees:
+        presents = [t for t in c.get("types", []) if any(p.get("type") == t["id"] and p["categorie"] == c["id"] for p in produits)]
+        if presents:
+            pastilles = "".join(f'<button type="button" class="sous-filtre" data-type="{t["id"]}" aria-pressed="false">{e(t["nom"])}</button>'
+                                for t in presents)
+            sous += (f'\n  <div class="sous-filtres" role="toolbar" aria-label="Type de {e(c["nom"].lower())}" data-sous-filtres="{c["id"]}" hidden>'
+                     f'<button type="button" class="sous-filtre" data-type="tout" aria-pressed="true">Tout</button>{pastilles}</div>')
     return f"""{tete(b, f"{b['nom']} : robes, chaussures et sacs pour femme", b['description'], '', 'img/accueil-apercu.jpg', '', version)}
 <body class="page-accueil">
 {entete(cat, '')}
@@ -374,7 +398,7 @@ def page_accueil(cat, produits, version):
     <button type="button" class="filtre" data-filtre="tout" aria-pressed="true">Tout</button>
 {filtres}
     <span class="filtres-trait" aria-hidden="true"></span>
-  </div>
+  </div>{sous}
   <p class="vide" data-vide hidden>Aucun article ne correspond à votre recherche. <button type="button" class="lien" data-filtre-tout>Voir tous les articles</button></p>
   <ul class="grille" data-grille>
 {cartes}
@@ -387,10 +411,25 @@ def page_accueil(cat, produits, version):
 def balise_photo(p, i, nb, racine):
     base = f"{racine}img/{p['id']}-{i}"
     chargement = 'fetchpriority="high"' if i == 1 else 'loading="lazy"'
+    w, h = DIMENSIONS.get((p["id"], i), (1080, 1350))
     return (f'        <button type="button" class="galerie-photo" data-agrandir="{i - 1}" aria-label="Agrandir la photo {i} sur {nb}">'
             f'<img src="{base}-800.webp" srcset="{base}-400.webp 400w, {base}-600.webp 600w, {base}-800.webp 800w, {base}-1080.webp 1080w" '
-            f'sizes="(min-width: 860px) 50vw, 100vw" width="1080" height="1350" {chargement} '
+            f'sizes="(min-width: 860px) 50vw, 100vw" width="{w}" height="{h}" {chargement} '
             f'alt="{e(p["nom"])}, photo {i} sur {nb}"></button>')
+
+
+def lecteur(p, racine):
+    """Vidéo de l'article : rien n'est téléchargé tant que la cliente ne touche pas « Voir la vidéo »."""
+    if not p.get("video"):
+        return "", ""
+    I_LECTURE = icone('<path d="M8 5.5v13l10.5-6.5z"/>')
+    bouton = (f'\n      <a class="bouton-video" href="{racine}video/{p["id"]}.mp4" data-video>{I_LECTURE}Voir la vidéo</a>')
+    fenetre = f"""
+<dialog class="lecteur" id="lecteur" aria-label="Vidéo de l'article">
+  <button type="button" class="entete-icone visionneuse-fermer" data-fermer aria-label="Fermer">{I_FERMER}</button>
+  <video data-lecteur-video controls playsinline loop muted preload="none" poster="{racine}img/{p['id']}-1-800.webp" data-src="{racine}video/{p['id']}.mp4"></video>
+</dialog>"""
+    return bouton, fenetre
 
 
 def visionneuse(p, racine):
@@ -434,6 +473,8 @@ def page_produit(cat, p, produits, version):
     nb = len(p["photos"])
     epuise = p.get("epuise")
     photos = "\n".join(balise_photo(p, i, nb, racine) for i in range(1, nb + 1))
+    bouton_video, fenetre_video = lecteur(p, racine)
+    lw, lh = DIMENSIONS.get((p["id"], 1), (4, 5))
     points = ""
     if nb > 1:
         actif = ' aria-current="true"'
@@ -502,10 +543,10 @@ def page_produit(cat, p, produits, version):
 <main class="fiche" data-produit="{p['id']}" data-taille-libelle="{e(libelle)}">
   <nav class="fil" aria-label="Fil d'Ariane"><a href="{racine}">Accueil</a><span aria-hidden="true">›</span><a href="{racine}#{categorie['id']}">{e(categorie['nom'])}</a></nav>
   <div class="fiche-grille">
-    <div class="galerie">
+    <div class="galerie" style="--ratio: {lw} / {lh}">
       <div class="galerie-piste" data-piste>
 {photos}
-      </div>{points}
+      </div>{points}{bouton_video}
     </div>
     <div class="fiche-infos">
       <h1>{e(p['nom'])}</h1>
@@ -547,7 +588,7 @@ def page_produit(cat, p, produits, version):
   </div>
   <a class="bouton" href="{racine}panier.html">Voir le panier et commander</a>
   <button type="button" class="bouton bouton-secondaire" data-fermer>Continuer mes achats</button>
-</dialog>{dialogue_guide}
+</dialog>{dialogue_guide}{fenetre_video}
 {visionneuse(p, racine)}
 {pied(cat, racine)}"""
 

@@ -78,7 +78,8 @@
     var cartes = grille.querySelectorAll(".carte");
     var recherche = document.querySelector("[data-recherche]");
     var champ = recherche.querySelector("input");
-    var etat = { categorie: "tout", texte: "" };
+    var sousBarres = document.querySelectorAll("[data-sous-filtres]");
+    var etat = { categorie: "tout", type: "tout", texte: "" };
 
     function bouton(categorie) {
       return boutons.filter(function (b) { return b.getAttribute("data-filtre") === categorie; })[0];
@@ -97,8 +98,18 @@
       boutons.forEach(function (b) {
         b.setAttribute("aria-pressed", String(b.getAttribute("data-filtre") === etat.categorie));
       });
+      // pastilles de type (ballerines, escarpins…) : seulement sous la catégorie qui en a
+      sousBarres.forEach(function (sb) {
+        var visible = sb.getAttribute("data-sous-filtres") === etat.categorie;
+        sb.hidden = !visible;
+        if (!visible) return;
+        sb.querySelectorAll("[data-type]").forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.getAttribute("data-type") === etat.type));
+        });
+      });
       cartes.forEach(function (c) {
         var garde = (etat.categorie === "tout" || c.getAttribute("data-categorie") === etat.categorie) &&
+          (etat.type === "tout" || c.getAttribute("data-type") === etat.type) &&
           (!mots || simple(c.getAttribute("data-nom")).indexOf(mots) !== -1);
         c.hidden = !garde;
         c.classList.remove("apparait");
@@ -122,6 +133,7 @@
 
     function choisir(categorie, doux) {
       etat.categorie = bouton(categorie) ? categorie : "tout";
+      etat.type = "tout";
       appliquer();
       allerAuxArticles(doux);
     }
@@ -130,6 +142,15 @@
       b.addEventListener("click", function () {
         history.replaceState(null, "", "#" + b.getAttribute("data-filtre"));
         choisir(b.getAttribute("data-filtre"), true);
+      });
+    });
+    sousBarres.forEach(function (sb) {
+      sb.addEventListener("click", function (ev) {
+        var b = ev.target.closest("[data-type]");
+        if (!b) return;
+        etat.type = b.getAttribute("data-type");
+        appliquer();
+        allerAuxArticles(true);
       });
     });
     document.querySelector("[data-filtre-tout]").addEventListener("click", function () {
@@ -300,6 +321,22 @@
         barre.classList.toggle("visible", !e[0].isIntersecting);
       }).observe(principal);
     }
+  }
+
+  // ---------------------------------------------------------------- vidéo de l'article
+  function video() {
+    var fenetre = document.getElementById("lecteur");
+    var lien = document.querySelector("[data-video]");
+    if (!fenetre || !lien) return;
+    var v = fenetre.querySelector("[data-lecteur-video]");
+    lien.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      if (!v.getAttribute("src")) v.setAttribute("src", v.getAttribute("data-src")); // téléchargée seulement maintenant
+      ouvrirFenetre(fenetre);
+      var lecture = v.play();
+      if (lecture && lecture.catch) lecture.catch(function () { /* la cliente lancera la lecture elle-même */ });
+    });
+    fenetre.addEventListener("close", function () { v.pause(); });
   }
 
   // ---------------------------------------------------------------- page panier : la commande
@@ -526,6 +563,7 @@
   accueil();
   galerie();
   visionneuse();
+  video();
   ajouter();
   panier();
   // retour par le bouton « Précédent » : la pastille doit refléter le panier actuel
