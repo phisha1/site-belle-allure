@@ -77,7 +77,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/01-1.jpg"],
-      "decor": true,
       "description": "Tissu tweed multicolore aux reflets pailletés, bout pointu et talon bobine noir de hauteur moyenne.",
       "nouveau": true,
       "video": "videos/escarpin-tweed-talon-bobine.mp4"
@@ -90,7 +89,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/02-1.jpg"],
-      "decor": true,
       "description": "Vernis beige, bout rond et boucle rectangulaire dorée sur le dessus. Petit talon liseré d'or.",
       "nouveau": true,
       "video": "videos/ballerine-vernie-beige-boucle.mp4"
@@ -103,7 +101,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/03-1.jpg"],
-      "decor": true,
       "description": "Cuir crème, bout carré et chaîne dorée et rosée sur le dessus. Plat, pour tous les jours.",
       "nouveau": true,
       "video": "videos/mocassin-creme-chaine.mp4"
@@ -116,7 +113,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/04-1.jpg"],
-      "decor": true,
       "description": "Tricot souple à motif croisillons et bout noir. Légère pour la journée.",
       "nouveau": true
     },
@@ -128,7 +124,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/05-1.jpg"],
-      "decor": true,
       "description": "Cuir crème, lacet noir noué avec un médaillon doré, petit talon carré doré.",
       "nouveau": true
     },
@@ -140,7 +135,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/06-1.jpg"],
-      "decor": true,
       "description": "Daim camel, bout pointu, bride sur le dessus avec une petite fleur, talon bloc.",
       "nouveau": true,
       "video": "videos/slingback-daim-camel-fleur.mp4"
@@ -153,7 +147,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/07-1.jpg"],
-      "decor": true,
       "description": "Paillettes argentées, talon aiguille et nœud en organza avec une perle. Pour les mariages et les soirées.",
       "nouveau": true,
       "video": "videos/escarpin-paillete-argent-noeud.mp4"
@@ -166,7 +159,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/08-1.jpg"],
-      "decor": true,
       "description": "Cuir crème, bout pointu et gros nœud blanc à pois noirs.",
       "nouveau": true
     },
@@ -177,10 +169,10 @@
       "type": "mule",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/09-1.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Tulle brodé et strass, bout pointu, petit talon doré. Elle s'enfile sans attache.",
-      "nouveau": true
+      "nouveau": true,
+      "en_attente": true
     },
     {
       "id": "ballerine-vernie-creme-abeille",
@@ -189,10 +181,10 @@
       "type": "ballerine",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/10-1.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Vernis crème légèrement froissé, petite abeille dorée sur le côté, talon bas.",
-      "nouveau": true
+      "nouveau": true,
+      "en_attente": true
     },
     {
       "id": "slingback-vernie-noire-boucle",
@@ -201,8 +193,7 @@
       "type": "slingback",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/11-1.jpg", "arrivage-1210/11-2.jpg"],
-      "decor": true,
+      "photos": ["arrivage-1210/11-1.jpg"],
       "description": "Vernis noir à liseré blanc, grosse boucle sur le dessus, bride arrière et talon bloc.",
       "nouveau": true
     },
@@ -213,10 +204,10 @@
       "type": "baskets",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/12-1.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Baskets gris dégradé à lacets blancs, semelle épaisse claire.",
-      "nouveau": true
+      "nouveau": true,
+      "en_attente": true
     },
     {
       "id": "escarpin-vert-eau",
@@ -226,7 +217,6 @@
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
       "photos": ["arrivage-1210/13-1.jpg"],
-      "decor": true,
       "description": "Vernis vert d'eau, bout carré avec un détail doré, talon moyen.",
       "nouveau": true
     },
@@ -237,8 +227,7 @@
       "type": "ballerine",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/14-1.jpg", "arrivage-1210/14-2.jpg"],
-      "decor": true,
+      "photos": ["arrivage-1210/14-1.jpg"],
       "description": "Cuir rose poudré, boucle carrée argentée sur le dessus, petit talon doré.",
       "nouveau": true,
       "video": "videos/ballerine-rose-boucle-carree.mp4"
@@ -250,11 +239,11 @@
       "type": "mocassin",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/15-1.jpg", "arrivage-1210/15-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Cuir lilas tout doux, petit cœur doré sur le côté, talon carré bas.",
       "nouveau": true,
-      "video": "videos/mocassin-lilas-coeur.mp4"
+      "video": "videos/mocassin-lilas-coeur.mp4",
+      "en_attente": true
     },
     {
       "id": "ballerine-pointue-daim-noir-boucle",
@@ -263,11 +252,11 @@
       "type": "ballerine",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/16-1.jpg", "arrivage-1210/16-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Daim noir, bout pointu et grande boucle crème sur le dessus.",
       "nouveau": true,
-      "video": "videos/ballerine-pointue-daim-noir-boucle.mp4"
+      "video": "videos/ballerine-pointue-daim-noir-boucle.mp4",
+      "en_attente": true
     },
     {
       "id": "ballerine-vernie-noire-bout-carre",
@@ -276,11 +265,11 @@
       "type": "ballerine",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/17-1.jpg", "arrivage-1210/17-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Cuir verni noir, bout carré surpiqué, intérieur beige.",
       "nouveau": true,
-      "video": "videos/ballerine-vernie-noire-bout-carre.mp4"
+      "video": "videos/ballerine-vernie-noire-bout-carre.mp4",
+      "en_attente": true
     },
     {
       "id": "escarpin-creme-petit-talon",
@@ -289,11 +278,11 @@
       "type": "escarpin",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/18-1.jpg", "arrivage-1210/18-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Cuir crème, bout pointu et petit talon fin évasé. Un talon discret pour le bureau.",
       "nouveau": true,
-      "video": "videos/escarpin-creme-petit-talon.mp4"
+      "video": "videos/escarpin-creme-petit-talon.mp4",
+      "en_attente": true
     },
     {
       "id": "ballerine-vernie-fuchsia-talon-cloute",
@@ -302,11 +291,11 @@
       "type": "ballerine",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/19-1.jpg", "arrivage-1210/19-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Vernis fuchsia, petit nœud sur le dessus et talon argenté clouté.",
       "nouveau": true,
-      "video": "videos/ballerine-vernie-fuchsia-talon-cloute.mp4"
+      "video": "videos/ballerine-vernie-fuchsia-talon-cloute.mp4",
+      "en_attente": true
     },
     {
       "id": "escarpin-vernis-noir-bout-dore",
@@ -315,11 +304,11 @@
       "type": "escarpin",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/20-1.jpg", "arrivage-1210/20-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Vernis noir froncé sur le dessus, bout en métal doré et talon aiguille.",
       "nouveau": true,
-      "video": "videos/escarpin-vernis-noir-bout-dore.mp4"
+      "video": "videos/escarpin-vernis-noir-bout-dore.mp4",
+      "en_attente": true
     },
     {
       "id": "babies-bordeaux-double-bride",
@@ -328,11 +317,11 @@
       "type": "babies",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/21-1.jpg", "arrivage-1210/21-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Vernis bordeaux, deux brides à boucle argentée, petit talon.",
       "nouveau": true,
-      "video": "videos/babies-bordeaux-double-bride.mp4"
+      "video": "videos/babies-bordeaux-double-bride.mp4",
+      "en_attente": true
     },
     {
       "id": "ballerine-taupe-boucle-strass",
@@ -341,11 +330,11 @@
       "type": "ballerine",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/22-1.jpg", "arrivage-1210/22-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Taupe, bout noir et grande boucle en strass sur le dessus.",
       "nouveau": true,
-      "video": "videos/ballerine-taupe-boucle-strass.mp4"
+      "video": "videos/ballerine-taupe-boucle-strass.mp4",
+      "en_attente": true
     },
     {
       "id": "ballerine-champagne-bride-perle",
@@ -354,11 +343,11 @@
       "type": "ballerine",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/23-1.jpg", "arrivage-1210/23-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Cuir champagne métallisé, fine bride à la cheville terminée par une perle.",
       "nouveau": true,
-      "video": "videos/ballerine-champagne-bride-perle.mp4"
+      "video": "videos/ballerine-champagne-bride-perle.mp4",
+      "en_attente": true
     },
     {
       "id": "escarpin-noir-pointu-noeud",
@@ -367,11 +356,11 @@
       "type": "escarpin",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/24-1.jpg", "arrivage-1210/24-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Cuir noir, bout pointu, nœud sur le dessus et petit talon carré.",
       "nouveau": true,
-      "video": "videos/escarpin-noir-pointu-noeud.mp4"
+      "video": "videos/escarpin-noir-pointu-noeud.mp4",
+      "en_attente": true
     },
     {
       "id": "babies-daim-noir-perle",
@@ -380,11 +369,11 @@
       "type": "babies",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/25-1.jpg", "arrivage-1210/25-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Daim noir, bride fine avec une perle sur le dessus, talon bloc.",
       "nouveau": true,
-      "video": "videos/babies-daim-noir-perle.mp4"
+      "video": "videos/babies-daim-noir-perle.mp4",
+      "en_attente": true
     },
     {
       "id": "slingback-noire-brodee",
@@ -393,11 +382,11 @@
       "type": "slingback",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/26-1.jpg", "arrivage-1210/26-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Bout pointu brodé noir et or, bride arrière à boucle, talon bobine.",
       "nouveau": true,
-      "video": "videos/slingback-noire-brodee.mp4"
+      "video": "videos/slingback-noire-brodee.mp4",
+      "en_attente": true
     },
     {
       "id": "escarpin-daim-noir-rivets",
@@ -406,11 +395,11 @@
       "type": "escarpin",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/27-1.jpg", "arrivage-1210/27-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Daim noir, bride à la cheville ornée de rivets, talon aiguille.",
       "nouveau": true,
-      "video": "videos/escarpin-daim-noir-rivets.mp4"
+      "video": "videos/escarpin-daim-noir-rivets.mp4",
+      "en_attente": true
     },
     {
       "id": "ballerine-pointue-noire-grainee",
@@ -419,8 +408,7 @@
       "type": "ballerine",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/28-1.jpg", "arrivage-1210/28-2.jpg"],
-      "decor": true,
+      "photos": ["arrivage-1210/28-1.jpg"],
       "description": "Cuir grainé noir aux reflets bleutés, bout pointu, petit talon.",
       "nouveau": true,
       "video": "videos/ballerine-pointue-noire-grainee.mp4"
@@ -432,11 +420,11 @@
       "type": "escarpin",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/29-1.jpg", "arrivage-1210/29-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Daim noir, bout pointu, pompon duveteux et talon fin à embout doré.",
       "nouveau": true,
-      "video": "videos/escarpin-daim-noir-pompon.mp4"
+      "video": "videos/escarpin-daim-noir-pompon.mp4",
+      "en_attente": true
     },
     {
       "id": "escarpin-bicolore-noeud",
@@ -445,11 +433,11 @@
       "type": "escarpin",
       "prix": 8000,
       "tailles": [37, 38, 39, 40, 41, 42],
-      "photos": ["arrivage-1210/30-1.jpg", "arrivage-1210/30-2.jpg"],
-      "decor": true,
+      "photos": [],
       "description": "Beige liseré de noir, bout noir avec un nœud, talon bloc.",
       "nouveau": true,
-      "video": "videos/escarpin-bicolore-noeud.mp4"
+      "video": "videos/escarpin-bicolore-noeud.mp4",
+      "en_attente": true
     },
     {
       "id": "slingback-creme-mors-dore",

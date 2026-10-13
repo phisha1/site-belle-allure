@@ -72,6 +72,8 @@ Puis ouvrir http://localhost:8000. Seule dépendance : Pillow (déjà installé)
   ne la télécharge qu'au toucher. Pour l'alléger : `ffmpeg -i entree.mp4 -an -vf "scale='min(720,iw)':-2"
   -c:v libx264 -crf 30 -movflags +faststart videos/nom.mp4`.
 - `"type"` (ballerine, escarpin, slingback, mocassin, babies, mule, baskets) : tri sous l'onglet Chaussures.
+- `"en_attente": true` : l'article est gardé dans le catalogue mais n'est pas affiché (par exemple tant
+  qu'on n'a pas de photo où la chaussure est entière). Retirer la ligne et ajouter la photo pour le publier.
 - `"nouveau": true` : badge « Nouveau » sur la case.
 
 3. Relancer `python3 construire.py`.

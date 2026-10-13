@@ -768,7 +768,8 @@ def page_introuvable(cat, version):
 def construire():
     cat = json.loads((ICI / "catalogue.json").read_text(encoding="utf-8"))
     b = cat["boutique"]
-    produits = [p for p in cat["produits"] if b.get("exemples") or not p.get("exemple")]
+    # « en_attente » : article reçu mais sans photo où la chaussure est entière ; il revient dès qu'on a la photo
+    produits = [p for p in cat["produits"] if (b.get("exemples") or not p.get("exemple")) and not p.get("en_attente")]
 
     if SORTIE.exists():
         shutil.rmtree(SORTIE)
@@ -804,6 +805,9 @@ def construire():
 
     poids = sum(f.stat().st_size for f in SORTIE.rglob("*") if f.is_file())
     print(f"{len(produits)} articles, {poids / 1e6:.1f} Mo dans {SORTIE.name}/")
+    attente = [p["nom"] for p in cat["produits"] if p.get("en_attente")]
+    if attente:
+        print(f"ℹ {len(attente)} articles en attente d'une photo entière (non affichés).")
     exemples = [p["nom"] for p in produits if p.get("exemple")]
     if exemples:
         print(f"⚠ {len(exemples)} articles d'exemple affichés (\"exemples\": false pour les retirer) : {', '.join(exemples)}")
